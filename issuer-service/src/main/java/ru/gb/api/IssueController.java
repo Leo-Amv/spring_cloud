@@ -1,5 +1,6 @@
 package ru.gb.api;
 
+import ru.gb.timer.Timer;
 import com.github.javafaker.Faker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/issue")
+@Timer
 public class IssueController {
 
     private final Faker faker;

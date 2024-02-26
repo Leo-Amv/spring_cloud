@@ -4,10 +4,12 @@ import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalance
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.gb.api.Book;
+import ru.gb.timer.Timer;
 
 import java.util.UUID;
 
 @Service
+@Timer
 public class BookProvider {
 
     private final WebClient webClient;
@@ -18,24 +20,11 @@ public class BookProvider {
                 .build();
     }
 
-    public UUID getRandomBookId() {
-
-        Book randomBook = webClient.get()
-                .uri("http://book-service/api/book/random")
-                .retrieve()
-                .bodyToMono(Book.class)
-                .block();
-
-        return randomBook.getId();
-    }
-
     public Book getRandomBook() {
-        Book randomBook = webClient.get()
+        return webClient.get()
                 .uri("http://book-service/api/book/random")
                 .retrieve()
                 .bodyToMono(Book.class)
                 .block();
-
-        return randomBook;
     }
 }
